@@ -3,6 +3,11 @@
 
 ### my-vue3-cli 项目是 vue-cli 创建的项目
 
+```bash
+npm install -g @vue/cli
+vue create my-vue3-cli
+```
+
 - 项目创建时是没有 webpack 相关配置的，在 Vue CLI 项目中，webpack 的配置是通过 `vue.config.js` 文件来管理的，也就是说在根目录需要创建一个 `vue.config.js` 文件
 
 - 主要借助 `const { defineConfig } = require('@vue/cli-service')` 实现
