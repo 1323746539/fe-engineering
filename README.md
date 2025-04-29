@@ -21,3 +21,5 @@ npm create vite@latest
 ```
 - Vite 本身就是一个更现代的构建工具，类似 webpack 的配置可以在 `vite.config.js` 文件中进行配置
 - 使用起来更加简单，创建到运行没有出现版本依赖问题
+
+### my-vue3-hand 项目是手动搭建的项目
