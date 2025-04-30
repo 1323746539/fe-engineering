@@ -6,6 +6,7 @@ const { VueLoaderPlugin } = require('vue-loader/dist/index');
 module.exports = {
     mode: 'development',
     entry: './src/main.js',
+    devtool: 'cheap-module-source-map',
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: 'bundle.js',
