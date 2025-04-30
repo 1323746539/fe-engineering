@@ -5,7 +5,7 @@ const { VueLoaderPlugin } = require('vue-loader/dist/index');
 
 module.exports = {
     mode: 'development',
-    entry: './src/main.js',
+    entry: './src/main.ts',
     devtool: 'cheap-module-source-map',
     output: {
         path: path.resolve(__dirname, '../dist'),
@@ -46,6 +46,13 @@ module.exports = {
                 },
                 generator: {
                     filename: 'images/[hash:10][ext][query]',
+                },
+            },
+            {
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                options: {
+                    appendTsSuffixTo: [/\.vue$/],
                 },
             },
         ],

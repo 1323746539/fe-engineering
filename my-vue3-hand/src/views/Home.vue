@@ -7,7 +7,7 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { add } from '@/utils/index';
 import { ref, computed } from 'vue';
 

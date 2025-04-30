@@ -1,11 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
-
+const TestTable = () => import('../views/TestTable.vue');
+const TestSelect = () => import('../views/TestSelect.vue');
 const routes = [
     {
         path: '/',
         name: 'Home',
         component: Home,
+    },
+    {
+        path: '/test-table',
+        name: 'TestTable',
+        component: TestTable,
+    },
+    {
+        path: '/test-select',
+        name: 'TestSelect',
+        component: TestSelect,
     },
 ];
 
