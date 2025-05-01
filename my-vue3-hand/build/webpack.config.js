@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 const { VueLoaderPlugin } = require('vue-loader/dist/index');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: 'development',
@@ -9,14 +10,33 @@ module.exports = {
     devtool: 'cheap-module-source-map',
     output: {
         path: path.resolve(__dirname, '../dist'),
-        filename: 'bundle.js',
+        filename: 'js/[name].[contenthash:8].js',
+        chunkFilename: 'chunks/[name].[contenthash:8].js',
         clean: true,
+        sourceMapFilename: 'maps/[name].[contenthash:8].map',
+        publicPath: '/',
     },
     resolve: {
         extensions: ['.js', '.vue', '.json', '.jsx', '.ts', '.tsx'],
         alias: {
             '@': path.resolve(__dirname, '../src'),
         },
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            minSize: 10,
+            cacheGroups: {
+                utils: {
+                    test: /utils/,
+                    filename: 'js/[name]_utils.js'
+                },
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    filename: 'js/[name]_vendors.js'
+                }
+            }
+        }
     },
     module: {
         rules: [
@@ -30,11 +50,12 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader', 'postcss-loader'],
+                // use: ['style-loader', 'css-loader', 'postcss-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
             },
             {
                 test: /\.less$/,
-                use: ['style-loader', 'css-loader', 'less-loader', 'postcss-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader', 'postcss-loader'],
             },
             {
                 test: /\.(png|jpe?g|svg|gif)$/,
@@ -67,6 +88,10 @@ module.exports = {
             __VUE_PROD_DEVTOOLS__: 'false',
         }),
         new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].[hash:8].css',
+            chunkFilename: 'css/[name].[hash:8].css',
+        }),
     ],
     devServer: {
         host: '127.0.0.1',

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
-const TestTable = () => import('../views/TestTable.vue');
-const TestSelect = () => import('../views/TestSelect.vue');
+const TestTable = () => import(/* webpackChunkName: "test-table" *//* webpackPrefetch: true */ '../views/TestTable.vue');
+const TestSelect = () => import(/* webpackChunkName: "test-select" */ '../views/TestSelect.vue');
 const routes = [
     {
         path: '/',
