@@ -2,10 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 const { VueLoaderPlugin } = require('vue-loader/dist/index');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: './src/main.ts',
     devtool: 'cheap-module-source-map',
     output: {
@@ -22,22 +21,6 @@ module.exports = {
             '@': path.resolve(__dirname, '../src'),
         },
     },
-    optimization: {
-        splitChunks: {
-            chunks: 'all',
-            minSize: 10,
-            cacheGroups: {
-                utils: {
-                    test: /utils/,
-                    filename: 'js/[name]_utils.js'
-                },
-                vendors: {
-                    test: /[\\/]node_modules[\\/]/,
-                    filename: 'js/[name]_vendors.js'
-                }
-            }
-        }
-    },
     module: {
         rules: [
             {
@@ -47,15 +30,6 @@ module.exports = {
             {
                 test: /\.js$/,
                 use: ['babel-loader'],
-            },
-            {
-                test: /\.css$/,
-                // use: ['style-loader', 'css-loader', 'postcss-loader'],
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
-            },
-            {
-                test: /\.less$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader', 'postcss-loader'],
             },
             {
                 test: /\.(png|jpe?g|svg|gif)$/,
@@ -88,17 +62,5 @@ module.exports = {
             __VUE_PROD_DEVTOOLS__: 'false',
         }),
         new VueLoaderPlugin(),
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].[hash:8].css',
-            chunkFilename: 'css/[name].[hash:8].css',
-        }),
     ],
-    devServer: {
-        host: '127.0.0.1',
-        port: 3000,
-        open: true,
-        hot: true,
-        historyApiFallback: true,
-        compress: true,
-    },
 };
